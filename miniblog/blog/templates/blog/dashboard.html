@@ -17,16 +17,21 @@
 
 {% block content %}
 <div class="col-sm-20">
-    {% if perms.blog.Addpost %}
+    {% if request.user.is_superuser %}
     <a href="{% url 'addpost' %}" class="btn btn-success btn-sm">Add post</a>
+    {% elif perms.blog.add_post %}
+        {% if Uname == post.uname %}
+        <a href="{% url 'addpost' %}" class="btn btn-success btn-sm">Add post</a>
+        {% endif %}
     {% endif %}
+    
     <h3 class="text-black text-center " style="font-family: cursive;font-size: 60px;">SHOW INFORMATION </h4>
         
     {% if posts %}
     <table class="table table-hover bg-dark">
     <thead>
         <tr class="text-center">
-            <th scope="col" style="width:2% ; color: aliceblue;"> ID</th>
+            
             <th scope="col" style="width:20% ; color: aliceblue;"> Name</th>
             <th scope="col" style="width:20% ; color: aliceblue;"> University</th>
             <th scope="col" style="width:45% ; color: aliceblue;"> Description</th>
@@ -36,22 +41,31 @@
     <tbody>
         {% for post in posts %}
         <tr class="text-center text-white">
-            <td scope="row"> {{post.id}} </td>
             <td>{{post.title}}</td>
             <td>{{post.university}}</td>
             <td>{{post.desc}}</td>
             <td class="text-lg-center">
-             
-                {% if perms.blog.Updatepost %}
+                {% if request.user.is_superuser %}
                 <a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
+                {% elif perms.blog.change_post %}
+                    {% if Uname == post.uname %}
+                    <a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    {% endif %}
                 {% endif %}
-                {% if perms.blog.Deletepost %}
+
+            {% if request.user.is_superuser %}
+                <form action="{% url 'delete' post.id  %}" method="post" class="d-inline" style="float: right;">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
+                </form> 
+            {% elif perms.blog.delete_post %}
+                {% if Uname == post.uname %}
                 <form action="{% url 'delete' post.id  %}" method="post" class="d-inline" style="float: right;">
                     {% csrf_token %}
                     <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                 </form>
-                
                 {% endif %}
+            {% endif %}
             </td>
         </tr>
         {% endfor %}
