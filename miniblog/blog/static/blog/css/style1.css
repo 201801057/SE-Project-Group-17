@@ -1,0 +1,18 @@
+body{
+    background-image: url("https://st2.depositphotos.com/1056393/7113/i/600/depositphotos_71137541-stock-photo-speaker-at-business-conference-and.jpg");
+    color:black;
+    background-position: fixed;
+   background-repeat: no-repeat;
+    background-size: cover;
+  
+    }
+
+.form-contol,
+    .form-control:focus{
+    background-color: rgb(177,168,168);
+    }
+.image{
+    width: 250px;
+    margin-right: 10px;
+}
+
