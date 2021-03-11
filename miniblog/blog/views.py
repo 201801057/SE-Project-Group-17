@@ -34,8 +34,6 @@ def user_login(request):
                login(request,user)
                messages.success(request,'LOGIN SUCCESFULLY !!')
                return HttpResponseRedirect('/dashboard/')
-            else :
-               messages.error(request,'LOGIN SUCCESFULLY !!')
       else :
          form = Login()
       return render(request,'blog/login.html',{'form':form})
@@ -55,18 +53,24 @@ def signup(request):
    if request.method =='POST' :
       form = Signup(request.POST)
       if form.is_valid():
-         messages.success(request,'Congratulation')
+         messages.success(request,'Congratulation Sign up Successfully done')
          user= form.save()
          group = Group.objects.get(name='Author')
          user.groups.add(group)
+         return HttpResponseRedirect('/login/')
    else :
       form = Signup()
    return render(request,'blog/signup.html',{'form':form})
 
 def dashboard(request):
       posts = Post.objects.all()   
-      return render(request,'blog/dashboard.html',{'posts':posts})
+      if request.user.is_authenticated:
+         Uname=request.user.username
+         return render(request,'blog/dashboard.html',{'posts':posts,'Uname':Uname})
+      else :
+          return render(request,'blog/dashboard.html',{'posts':posts})
 
+          
 def Addpost(request):
    if request.user.is_authenticated:
       if request.method == "POST":
@@ -75,7 +79,8 @@ def Addpost(request):
             title=form.cleaned_data['title']
             desc=form.cleaned_data['desc']
             university=form.cleaned_data['university']
-            pst=Post(title=title,desc=desc,university=university)
+            uname=form.cleaned_data['uname']
+            pst=Post(title=title,desc=desc,university=university,uname=uname)
             pst.save()
             form = Postform()
             messages.success(request,'Add successfully !!')

@@ -28,7 +28,7 @@ class Postform(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['uname','title','university','desc']
-        labels = {'title':'Title','desc':'Description','university':'University','uname':'Username'}
+        labels = {'title':'Name','desc':'Description','university':'University','uname':'Username'}
         widgets={'title':forms.TextInput(attrs={'class':'form-control'}),
         'desc':forms.Textarea(attrs={'class':'form-control'}),
         'university':forms.TextInput(attrs={'class':'form-control'}),
