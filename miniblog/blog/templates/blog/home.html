@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
+<form class="example" style=" position: absolute;
+    right: 16px;
+    font-size: 18px;position: absolute; margin-top: -90px; margin-right: -1060px;" action="/search" method="GET">
+    <input type="text" style="height: 40px;" placeholder="Search Name" class="text-center" name="query" id="query">
+    <button type="submit" class="btn btn-outline-success m-500"><i class="fa fa-search"></i></button>
+</form>
 <div class="col-sm-20">
     <h3 class="text-black text-center " style="font-family: cursive;font-size: 60px;"> POPULAR UNIVERSITIES </h3>
     <div class="col-sm-16 text-center mt-5">
@@ -10,7 +16,10 @@
         <img  class="image" src="{% static 'blog/images/nirma.jpg' %}">
         <img  class="image" src="{% static 'blog/images/iim.png' %}">
     </div>
+   
+
     
     
 </div>
+
 {% endblock content %}

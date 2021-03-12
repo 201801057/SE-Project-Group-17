@@ -23,6 +23,9 @@ urlpatterns = [
     path('about/',views.about,name='about'),
     path('login/',views.user_login,name='login'),
     path('search/',views.search,name='search'),
+    path('by_uni/',views.by_uni,name='by_uni'),
+     path('search_university/',views.search_university,name='search_university'),
+    
     path('delete/<int:id>/',views.Deletepost,name='delete'),
     path('addpost/',views.Addpost,name='addpost'),
     path('updatepost/<int:id>/',views.Updatepost,name='updatepost'),

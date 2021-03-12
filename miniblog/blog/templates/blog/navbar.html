@@ -23,14 +23,18 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'contact' %}">Contact</a>
       </li>
+     
+      <li class="dropdown" style="margin-left: 500px;">
+        <a href="javascript:void(0)" class="dropbtn">Search By...</a>
+        <div class="dropdown-content">
+          <a href="{% url 'dashboard' %}">NAME</a>
+          <a href="{% url 'by_uni' %}">UNIVERSITIES</a>
+          <a href="#">SUBJECT</a>
+        </div>
+      </li>
     
-   
-    <form class="example" style=" position: absolute;
-    right: 16px;
-    font-size: 18px;" action="/search" method="GET">
-      <input type="text" placeholder="Search" class="text-center" name="query" id="query">
-      <button type="submit" class="btn btn-outline-success m-500"><i class="fa fa-search"></i></button>
-    </form>
+
+    
  
 
   </ul>

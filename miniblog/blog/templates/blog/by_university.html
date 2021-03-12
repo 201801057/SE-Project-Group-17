@@ -18,11 +18,11 @@
 {% block content %}
 <form class="example" style=" position: absolute;
     right: 16px;
-    font-size: 18px; position: absolute; margin-top: -90px; margin-right: -1060px;" action="/search" method="GET">
-    <input type="text" placeholder="Search Name" class="text-center" name="query" id="query">
+    font-size: 18px;position: absolute; margin-top: -90px; margin-right: -1060px;" action="/search_university" method="GET">
+    <input type="text" placeholder="Search University" class="text-center" name="query1" id="query1">
     <button type="submit" class="btn btn-outline-success m-500"><i class="fa fa-search"></i></button>
 </form>
-   
+
 <div class="col-sm-20">
     {% if request.user.is_superuser %}
     <a href="{% url 'addpost' %}" class="btn btn-success btn-sm">Add post</a>

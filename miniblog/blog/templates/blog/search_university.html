@@ -1,44 +1,24 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
-{% block msg %}
-{% if messages %}
-    {% for message in messages %}
-    <div {% if message.tags %}  class="alert alert-{{message.tags}}
-     alert-dismissible fade show"   {% endif %}> 
-    <strong>{{message}}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    {% endfor %}
-{% endif %}
-{% endblock msg %}
-
 {% block content %}
 <form class="example" style=" position: absolute;
     right: 16px;
-    font-size: 18px; position: absolute; margin-top: -90px; margin-right: -1060px;" action="/search" method="GET">
-    <input type="text" placeholder="Search Name" class="text-center" name="query" id="query">
+    font-size: 18px;position: absolute; margin-top: -90px; margin-right: -1060px;" action="/search_university" method="GET">
+    <input type="text" placeholder="Search University" class="text-center" name="query1" id="query1">
     <button type="submit" class="btn btn-outline-success m-500"><i class="fa fa-search"></i></button>
 </form>
-   
 <div class="col-sm-20">
-    {% if request.user.is_superuser %}
+    {% if perms.blog.Addpost %}
     <a href="{% url 'addpost' %}" class="btn btn-success btn-sm">Add post</a>
-    {% elif perms.blog.add_post %}
-        {% if Uname == post.uname %}
-        <a href="{% url 'addpost' %}" class="btn btn-success btn-sm">Add post</a>
-        {% endif %}
     {% endif %}
-    
     <h3 class="text-black text-center " style="font-family: cursive;font-size: 60px;">SHOW INFORMATION </h4>
-        
+   
     {% if posts %}
     <table class="table table-hover bg-dark">
     <thead>
         <tr class="text-center">
-            
+          
             <th scope="col" style="width:20% ; color: aliceblue;"> Name</th>
             <th scope="col" style="width:20% ; color: aliceblue;"> University</th>
             <th scope="col" style="width:45% ; color: aliceblue;"> Description</th>
@@ -48,31 +28,21 @@
     <tbody>
         {% for post in posts %}
         <tr class="text-center text-white">
+           
             <td>{{post.title}}</td>
             <td>{{post.university}}</td>
             <td>{{post.desc}}</td>
             <td class="text-lg-center">
-                {% if request.user.is_superuser %}
+                
+                {% if perms.blog.Updatepost %}
                 <a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
-                {% elif perms.blog.change_post %}
-                    {% if Uname == post.uname %}
-                    <a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
-                    {% endif %}
                 {% endif %}
-
-            {% if request.user.is_superuser %}
-                <form action="{% url 'delete' post.id  %}" method="post" class="d-inline" style="float: right;">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
-                </form> 
-            {% elif perms.blog.delete_post %}
-                {% if Uname == post.uname %}
+                {% if perms.blog.Deletepost %}
                 <form action="{% url 'delete' post.id  %}" method="post" class="d-inline" style="float: right;">
                     {% csrf_token %}
                     <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
                 </form>
                 {% endif %}
-            {% endif %}
             </td>
         </tr>
         {% endfor %}

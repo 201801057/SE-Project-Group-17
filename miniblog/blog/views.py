@@ -18,6 +18,16 @@ def search(request):
      posts= Post.objects.filter(title__icontains=query)
      return render(request,'blog/search.html',{'posts':posts})
 
+def search_university(request):
+     query=request.GET['query1']
+     posts= Post.objects.filter(university__icontains=query)
+     return render(request,'blog/search_university.html',{'posts':posts})
+     
+def by_uni(request):
+     posts=Post.objects.all()
+     return render(request,'blog/by_university.html',{'posts':posts})
+
+
 def home(request):
    posts=Post.objects.all()
    return render(request,'blog/home.html',{'posts':posts})
@@ -84,6 +94,7 @@ def Addpost(request):
             pst.save()
             form = Postform()
             messages.success(request,'Add successfully !!')
+            return HttpResponseRedirect('/dashboard/')
       else :
          form = Postform()
       return render(request,'blog/addpost.html',{'form':form})
